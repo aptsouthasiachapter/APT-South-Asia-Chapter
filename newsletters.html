@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Newsletters — APT South Asia Chapter</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --clay: #c9a96e;
+      --stone: #8b7355;
+      --cream: #f5f0e8;
+      --ink: #1a1614;
+      --dust: #e8e0d0;
+      --moss: #4a5240;
+      --rust: #b85c38;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); overflow-x: hidden; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 3rem;
+      background: rgba(245,240,232,0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--dust);
+    }
+    .nav-logo { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.1rem; color: var(--moss); letter-spacing: 0.02em; text-decoration: none; display: block; }
+    .nav-logo span { color: var(--rust); }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--ink); font-size: 0.85rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--rust); }
+
+    /* PAGE HEADER */
+    .page-header {
+      background: var(--moss); padding: 10rem 5rem 5rem;
+      position: relative; overflow: hidden;
+    }
+    .page-header::before {
+      content: 'NEWSLETTERS';
+      position: absolute; right: -2rem; top: 50%; transform: translateY(-50%);
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(6rem, 12vw, 14rem); font-weight: 900;
+      color: rgba(255,255,255,0.04); line-height: 1;
+      white-space: nowrap; pointer-events: none;
+    }
+    .page-label { font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--clay); margin-bottom: 1rem; display: block; }
+    .page-title { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 5vw, 5rem); font-weight: 900; color: var(--cream); line-height: 1.05; margin-bottom: 1.5rem; }
+    .page-desc { font-size: 1.05rem; color: rgba(245,240,232,0.7); max-width: 560px; line-height: 1.8; }
+
+    /* NEWSLETTERS GRID */
+    .newsletters-section { padding: 6rem 5rem; }
+
+    /* FEATURED (first/latest) */
+    .featured-card {
+      display: grid; grid-template-columns: 1fr 1fr;
+      background: white; margin-bottom: 4rem;
+      box-shadow: 0 4px 30px rgba(0,0,0,0.06);
+      overflow: hidden;
+      transition: transform 0.3s;
+    }
+    .featured-card:hover { transform: translateY(-4px); }
+    .featured-preview {
+      background: var(--moss);
+      display: flex; align-items: center; justify-content: center;
+      padding: 4rem 3rem; min-height: 360px;
+      position: relative; overflow: hidden;
+    }
+    .featured-preview::before {
+      content: ''; position: absolute; inset: 0;
+      background: repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(201,169,110,0.05) 20px, rgba(201,169,110,0.05) 40px);
+    }
+    .preview-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 10rem; font-weight: 900;
+      color: rgba(255,255,255,0.06); line-height: 1;
+      position: absolute;
+    }
+    .preview-badge {
+      background: var(--clay); color: var(--ink);
+      padding: 0.5rem 1.2rem; font-size: 0.7rem;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      font-weight: 600; z-index: 1;
+    }
+    .featured-content { padding: 3.5rem; display: flex; flex-direction: column; justify-content: center; }
+    .issue-tag { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--rust); margin-bottom: 1rem; }
+    .issue-title { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 800; color: var(--moss); line-height: 1.2; margin-bottom: 1.2rem; }
+    .issue-desc { font-size: 0.95rem; line-height: 1.8; color: #555; margin-bottom: 2rem; flex: 1; }
+    .read-btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--moss); color: var(--cream);
+      padding: 0.9rem 2rem; text-decoration: none;
+      font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase;
+      font-weight: 500; transition: background 0.25s; align-self: flex-start;
+    }
+    .read-btn:hover { background: var(--rust); }
+
+    /* GRID CARDS */
+    .grid-label { font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--stone); margin-bottom: 2rem; display: block; border-top: 1px solid var(--dust); padding-top: 2rem; }
+    .issues-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+    .issue-card {
+      background: white; display: flex;
+      border-left: 4px solid var(--dust);
+      transition: border-color 0.25s, transform 0.25s;
+      overflow: hidden;
+    }
+    .issue-card:hover { border-left-color: var(--clay); transform: translateX(4px); }
+    .issue-card-accent {
+      width: 80px; min-height: 160px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; position: relative;
+    }
+    .accent-1 { background: var(--dust); }
+    .accent-2 { background: #d4c5a9; }
+    .accent-3 { background: #c5b898; }
+    .accent-4 { background: #b5a888; }
+    .issue-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem; font-weight: 900;
+      color: rgba(255,255,255,0.5); writing-mode: vertical-rl;
+    }
+    .issue-card-body { padding: 2rem; flex: 1; }
+    .issue-card-tag { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--rust); margin-bottom: 0.6rem; }
+    .issue-card-title { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 700; color: var(--moss); margin-bottom: 0.7rem; line-height: 1.3; }
+    .issue-card-desc { font-size: 0.85rem; line-height: 1.6; color: #666; margin-bottom: 1.2rem; }
+    .issue-link { color: var(--rust); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; font-weight: 500; border-bottom: 1px solid currentColor; padding-bottom: 1px; transition: color 0.2s; }
+    .issue-link:hover { color: var(--stone); }
+
+    /* FOOTER */
+    footer { background: var(--ink); padding: 4rem 5rem 2rem; }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 4rem; margin-bottom: 3rem; }
+    .footer-brand { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: var(--cream); margin-bottom: 1rem; }
+    .footer-brand span { color: var(--clay); }
+    .footer-tagline { font-size: 0.9rem; line-height: 1.7; color: #888; }
+    .footer-col-title { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--clay); margin-bottom: 1.2rem; }
+    .footer-links { list-style: none; }
+    .footer-links li { margin-bottom: 0.7rem; }
+    .footer-links a { color: #999; text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--cream); }
+    .footer-bottom { border-top: 1px solid #2a2a2a; padding-top: 2rem; display: flex; justify-content: space-between; align-items: center; }
+    .footer-copy { font-size: 0.8rem; color: #666; }
+    .footer-apt { font-size: 0.8rem; color: #555; }
+
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1.5rem; }
+      .page-header { padding: 7rem 2rem 3rem; }
+      .newsletters-section { padding: 3rem 2rem; }
+      .featured-card { grid-template-columns: 1fr; }
+      .featured-preview { min-height: 200px; }
+      .issues-grid { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr; gap: 2rem; }
+      .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">APT <span>South Asia</span> Chapter</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="newsletters.html" class="active">Newsletters</a></li>
+    <li><a href="podcasts.html">Podcasts</a></li>
+  </ul>
+</nav>
+
+<div class="page-header">
+  <span class="page-label">Publications</span>
+  <h1 class="page-title">Newsletters</h1>
+  <p class="page-desc">Five editions exploring heritage preservation, engineering, underwater conservation, and the built environment of South Asia.</p>
+</div>
+
+<section class="newsletters-section">
+
+  <!-- FEATURED LATEST -->
+  <div class="featured-card reveal">
+    <div class="featured-preview">
+      <span class="preview-number">5</span>
+      <div class="preview-badge">Latest Issue</div>
+    </div>
+    <div class="featured-content">
+      <p class="issue-tag">Edition 5 · April 2025</p>
+      <h2 class="issue-title">Preservation Engineering</h2>
+      <p class="issue-desc">Our most recent edition delves into the technical and engineering dimensions of heritage conservation — exploring how structural analysis, materials science, and modern engineering tools can be applied to protect and restore historic buildings across South Asia. A must-read for professionals at the intersection of engineering and preservation.</p>
+      <a href="https://issuu.com/aptsouthasiachapter/docs/aptisouthasiaaprilissue2025" target="_blank" class="read-btn">Read Full Issue →</a>
+    </div>
+  </div>
+
+  <!-- ARCHIVE GRID -->
+  <span class="grid-label">Previous Editions</span>
+  <div class="issues-grid">
+
+    <div class="issue-card reveal">
+      <div class="issue-card-accent accent-2">
+        <span class="issue-num">4</span>
+      </div>
+      <div class="issue-card-body">
+        <p class="issue-card-tag">Edition 4 · January 2025</p>
+        <h3 class="issue-card-title">In Deep Water</h3>
+        <p class="issue-card-desc">An exploration of underwater and waterlogged heritage — the unique challenges and methodologies involved in preserving submerged historic sites across the South Asian coastline and river systems.</p>
+        <a href="https://issuu.com/aptsouthasiachapter/docs/aptisouthasiajanuaryissue_7856a1ce37fe4e" target="_blank" class="issue-link">Read Issue →</a>
+      </div>
+    </div>
+
+    <div class="issue-card reveal">
+      <div class="issue-card-accent accent-3">
+        <span class="issue-num">3</span>
+      </div>
+      <div class="issue-card-body">
+        <p class="issue-card-tag">Edition 3 · October 2024</p>
+        <h3 class="issue-card-title">The Heritage Issue</h3>
+        <p class="issue-card-desc">A focused edition on the broader landscape of heritage conservation — policy, advocacy, and practice in protecting the built environment of South Asia for future generations.</p>
+        <a href="https://issuu.com/aptisa/docs/the_heritage_issue_oct_2024" target="_blank" class="issue-link">Read Issue →</a>
+      </div>
+    </div>
+
+    <div class="issue-card reveal">
+      <div class="issue-card-accent accent-4">
+        <span class="issue-num">2</span>
+      </div>
+      <div class="issue-card-body">
+        <p class="issue-card-tag">Edition 2 · 2024</p>
+        <h3 class="issue-card-title">Earlier Edition</h3>
+        <p class="issue-card-desc">Continuing our tradition of bringing thoughtful, in-depth perspectives on preservation and heritage to our South Asia readership.</p>
+        <a href="https://issuu.com/aptsouthasiachapter" target="_blank" class="issue-link">Browse on Issuu →</a>
+      </div>
+    </div>
+
+    <div class="issue-card reveal">
+      <div class="issue-card-accent accent-1">
+        <span class="issue-num">1</span>
+      </div>
+      <div class="issue-card-body">
+        <p class="issue-card-tag">Edition 1 · Inaugural</p>
+        <h3 class="issue-card-title">Founding Edition</h3>
+        <p class="issue-card-desc">The inaugural edition of the APT South Asia Chapter newsletter — establishing our voice and mission in the preservation community since 2019.</p>
+        <a href="https://issuu.com/aptsouthasiachapter" target="_blank" class="issue-link">Browse on Issuu →</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">APT <span>South Asia</span> Chapter</div>
+      <p class="footer-tagline">Serving the South Asia region through education, training, and outreach in preservation technology since 2019.</p>
+    </div>
+    <div>
+      <p class="footer-col-title">Navigate</p>
+      <ul class="footer-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="newsletters.html">Newsletters</a></li>
+        <li><a href="podcasts.html">Podcasts</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">External</p>
+      <ul class="footer-links">
+        <li><a href="https://www.apti.org" target="_blank">APT International</a></li>
+        <li><a href="https://soundcloud.com/aptsouthasiachapter" target="_blank">SoundCloud</a></li>
+        <li><a href="https://issuu.com/aptsouthasiachapter" target="_blank">Issuu</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2025 APT South Asia Chapter. All rights reserved.</p>
+    <p class="footer-apt">A regional chapter of APT International</p>
+  </div>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 100);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
