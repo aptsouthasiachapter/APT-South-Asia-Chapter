@@ -8,155 +8,75 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
-    :root {
-      --clay: #c9a96e;
-      --stone: #8b7355;
-      --cream: #f5f0e8;
-      --ink: #1a1614;
-      --dust: #e8e0d0;
-      --moss: #4a5240;
-      --rust: #b85c38;
-    }
+    :root { --clay: #c9a96e; --stone: #8b7355; --cream: #f5f0e8; --ink: #1a1614; --dust: #e8e0d0; --moss: #4a5240; --rust: #b85c38; --spotify: #1DB954; }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); overflow-x: hidden; }
 
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 1.2rem 3rem;
-      background: rgba(245,240,232,0.92);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--dust);
-    }
-    .nav-logo { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.1rem; color: var(--moss); letter-spacing: 0.02em; text-decoration: none; display: block; }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1.2rem 3rem; background: rgba(245,240,232,0.92); backdrop-filter: blur(10px); border-bottom: 1px solid var(--dust); }
+    .nav-logo { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.1rem; color: var(--moss); letter-spacing: 0.02em; text-decoration: none; }
     .nav-logo span { color: var(--rust); }
     .nav-links { display: flex; gap: 2.5rem; list-style: none; }
     .nav-links a { text-decoration: none; color: var(--ink); font-size: 0.85rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; }
     .nav-links a:hover, .nav-links a.active { color: var(--rust); }
 
-    /* PAGE HEADER */
-    .page-header {
-      background: var(--ink); padding: 10rem 5rem 5rem;
-      position: relative; overflow: hidden;
-    }
-    .page-header::before {
-      content: 'PODCAST';
-      position: absolute; right: -2rem; top: 50%; transform: translateY(-50%);
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(6rem, 14vw, 16rem); font-weight: 900;
-      color: rgba(255,255,255,0.03); line-height: 1;
-      white-space: nowrap; pointer-events: none;
-    }
-    .header-waveform {
-      position: absolute; bottom: 0; left: 0; right: 0;
-      height: 60px; overflow: hidden;
-    }
+    .page-header { background: var(--ink); padding: 10rem 5rem 6rem; position: relative; overflow: hidden; }
+    .page-header::before { content: 'PODCAST'; position: absolute; right: -1rem; top: 50%; transform: translateY(-50%); font-family: 'Playfair Display', serif; font-size: clamp(6rem, 14vw, 16rem); font-weight: 900; color: rgba(255,255,255,0.03); line-height: 1; white-space: nowrap; pointer-events: none; }
     .page-label { font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--clay); margin-bottom: 1rem; display: block; }
     .page-title { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 5vw, 5rem); font-weight: 900; color: var(--cream); line-height: 1.05; margin-bottom: 1.5rem; }
     .page-title em { font-style: italic; color: var(--clay); }
     .page-desc { font-size: 1.05rem; color: rgba(245,240,232,0.65); max-width: 560px; line-height: 1.8; margin-bottom: 2rem; }
-    .soundcloud-link {
-      display: inline-flex; align-items: center; gap: 0.6rem;
-      background: transparent; border: 1px solid rgba(201,169,110,0.4);
-      color: var(--clay); padding: 0.7rem 1.5rem; text-decoration: none;
-      font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500;
-      transition: all 0.25s;
-    }
-    .soundcloud-link:hover { background: var(--clay); color: var(--ink); border-color: var(--clay); }
-
-    /* PODCAST SECTION */
-    .podcasts-section { padding: 6rem 5rem; }
+    .header-links { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .spotify-link { display: inline-flex; align-items: center; gap: 0.6rem; background: var(--spotify); color: #000; padding: 0.7rem 1.5rem; text-decoration: none; font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 600; border-radius: 2px; transition: opacity 0.2s; }
+    .spotify-link:hover { opacity: 0.88; }
+    .spotify-icon { width: 18px; height: 18px; }
+    .sc-link { display: inline-flex; align-items: center; gap: 0.6rem; border: 1px solid rgba(201,169,110,0.4); color: var(--clay); padding: 0.7rem 1.5rem; text-decoration: none; font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 500; transition: all 0.2s; border-radius: 2px; }
+    .sc-link:hover { background: var(--clay); color: var(--ink); border-color: var(--clay); }
 
     /* FEATURED EPISODE */
-    .featured-episode {
-      display: grid; grid-template-columns: 240px 1fr;
-      gap: 0; background: white; margin-bottom: 4rem;
-      box-shadow: 0 4px 30px rgba(0,0,0,0.08);
-      overflow: hidden;
-    }
-    .ep-art {
-      background: var(--rust);
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      padding: 3rem 2rem; position: relative;
-      overflow: hidden;
-    }
-    .ep-art::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: repeating-conic-gradient(rgba(255,255,255,0.03) 0% 25%, transparent 0% 50%);
-      background-size: 30px 30px;
-    }
+    .podcasts-section { padding: 6rem 5rem; }
+    .featured-episode { display: grid; grid-template-columns: 240px 1fr; background: white; margin-bottom: 4rem; box-shadow: 0 4px 30px rgba(0,0,0,0.08); overflow: hidden; transition: transform 0.3s; }
+    .featured-episode:hover { transform: translateY(-3px); }
+    .ep-art { background: var(--rust); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 3rem 2rem; min-height: 280px; position: relative; overflow: hidden; }
+    .ep-art::before { content: ''; position: absolute; inset: 0; background: repeating-conic-gradient(rgba(255,255,255,0.04) 0% 25%, transparent 0% 50%); background-size: 30px 30px; }
     .ep-art-icon { font-size: 3.5rem; z-index: 1; margin-bottom: 1rem; }
-    .ep-art-label {
-      font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
-      color: rgba(255,255,255,0.6); z-index: 1; text-align: center;
-    }
-    .ep-latest-badge {
-      position: absolute; top: 1rem; left: 50%; transform: translateX(-50%);
-      background: var(--clay); color: var(--ink);
-      padding: 0.25rem 0.8rem; font-size: 0.6rem;
-      letter-spacing: 0.15em; text-transform: uppercase; font-weight: 600;
-      white-space: nowrap;
-    }
+    .ep-art-ep { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: rgba(255,255,255,0.5); z-index: 1; letter-spacing: 0.1em; }
+    .ep-latest-badge { position: absolute; top: 1rem; left: 50%; transform: translateX(-50%); background: var(--clay); color: var(--ink); padding: 0.25rem 0.8rem; font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; font-weight: 600; white-space: nowrap; }
     .ep-content { padding: 3rem; display: flex; flex-direction: column; justify-content: center; }
     .ep-meta { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--rust); margin-bottom: 0.8rem; }
-    .ep-title { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 800; color: var(--moss); line-height: 1.2; margin-bottom: 1rem; }
-    .ep-desc { font-size: 0.95rem; line-height: 1.8; color: #555; margin-bottom: 2rem; }
-    .listen-btn {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      background: var(--ink); color: var(--cream);
-      padding: 0.9rem 2rem; text-decoration: none;
-      font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase;
-      font-weight: 500; transition: background 0.25s; align-self: flex-start;
-    }
-    .listen-btn:hover { background: var(--rust); }
-    .play-icon { width: 18px; height: 18px; fill: currentColor; }
+    .ep-title { font-family: 'Playfair Display', serif; font-size: 1.7rem; font-weight: 800; color: var(--moss); line-height: 1.2; margin-bottom: 1rem; }
+    .ep-guests { font-size: 0.8rem; color: var(--stone); margin-bottom: 1rem; letter-spacing: 0.05em; }
+    .ep-guests strong { color: var(--moss); }
+    .ep-desc { font-size: 0.93rem; line-height: 1.8; color: #555; margin-bottom: 2rem; }
+    .ep-footer { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+    .ep-duration { font-size: 0.75rem; color: #999; letter-spacing: 0.05em; }
+    .listen-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--spotify); color: #000; padding: 0.75rem 1.8rem; text-decoration: none; font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600; transition: opacity 0.2s; border-radius: 2px; }
+    .listen-btn:hover { opacity: 0.85; }
+    .play-icon { width: 16px; height: 16px; fill: currentColor; flex-shrink: 0; }
 
     /* EPISODES LIST */
     .episodes-label { font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--stone); margin-bottom: 2rem; display: block; border-top: 1px solid var(--dust); padding-top: 2rem; }
-    .episodes-list { display: flex; flex-direction: column; gap: 0; }
-    .episode-row {
-      display: grid; grid-template-columns: 80px 1fr auto;
-      align-items: center; gap: 2rem;
-      padding: 2rem; background: white;
-      border-bottom: 1px solid var(--dust);
-      transition: background 0.2s;
-      text-decoration: none; color: inherit;
-    }
+    .episodes-list { display: flex; flex-direction: column; }
+    .episode-row { display: grid; grid-template-columns: 70px 1fr auto; align-items: center; gap: 2rem; padding: 2rem; background: white; border-bottom: 1px solid var(--dust); text-decoration: none; color: inherit; transition: background 0.2s; }
     .episode-row:first-child { border-top: none; }
-    .episode-row:hover { background: var(--dust); }
-    .ep-num {
-      font-family: 'Playfair Display', serif;
-      font-size: 2.5rem; font-weight: 900;
-      color: var(--dust); text-align: center;
-    }
+    .episode-row:hover { background: #faf7f2; }
+    .ep-num { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 900; color: var(--dust); text-align: center; transition: color 0.2s; }
     .episode-row:hover .ep-num { color: var(--clay); }
-    .ep-info {}
-    .ep-info-meta { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--stone); margin-bottom: 0.4rem; }
-    .ep-info-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--moss); }
-    .ep-arrow {
-      color: var(--dust); font-size: 1.5rem;
-      transition: color 0.2s, transform 0.2s;
-    }
+    .ep-info-meta { font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--stone); margin-bottom: 0.3rem; }
+    .ep-info-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--moss); margin-bottom: 0.3rem; }
+    .ep-info-sub { font-size: 0.82rem; color: #777; line-height: 1.5; }
+    .ep-right { display: flex; flex-direction: column; align-items: flex-end; gap: 0.6rem; }
+    .ep-dur { font-size: 0.72rem; color: #aaa; white-space: nowrap; }
+    .ep-arrow { color: var(--dust); font-size: 1.3rem; transition: color 0.2s, transform 0.2s; }
     .episode-row:hover .ep-arrow { color: var(--rust); transform: translateX(4px); }
 
-    /* SOUNDCLOUD EMBED SECTION */
-    .embed-section {
-      background: var(--moss); padding: 5rem;
-      text-align: center;
-    }
+    /* SPOTIFY EMBED */
+    .embed-section { background: var(--moss); padding: 5rem; text-align: center; }
     .embed-label { font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--clay); margin-bottom: 1rem; display: block; }
     .embed-title { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 800; color: var(--cream); margin-bottom: 2rem; }
-    .embed-wrapper {
-      max-width: 800px; margin: 0 auto;
-      background: rgba(255,255,255,0.05);
-      padding: 2rem; border: 1px solid rgba(201,169,110,0.2);
-    }
-    iframe { border: none; width: 100%; }
+    .embed-wrapper { max-width: 800px; margin: 0 auto; }
+    iframe { border: none; width: 100%; border-radius: 4px; }
 
-    /* FOOTER */
     footer { background: var(--ink); padding: 4rem 5rem 2rem; }
     .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 4rem; margin-bottom: 3rem; }
     .footer-brand { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: var(--cream); margin-bottom: 1rem; }
@@ -175,13 +95,13 @@
     .reveal.visible { opacity: 1; transform: translateY(0); }
 
     @media (max-width: 900px) {
-      nav { padding: 1rem 1.5rem; }
-      .nav-links { gap: 1.5rem; }
+      nav { padding: 1rem 1.5rem; } .nav-links { gap: 1.5rem; }
       .page-header { padding: 7rem 2rem 3rem; }
       .podcasts-section { padding: 3rem 2rem; }
       .featured-episode { grid-template-columns: 1fr; }
       .ep-art { min-height: 180px; }
-      .episode-row { grid-template-columns: 50px 1fr auto; gap: 1rem; padding: 1.5rem 1rem; }
+      .ep-content { padding: 2rem; }
+      .episode-row { grid-template-columns: 48px 1fr auto; gap: 1rem; padding: 1.5rem 1rem; }
       .embed-section { padding: 3rem 2rem; }
       .footer-top { grid-template-columns: 1fr; gap: 2rem; }
       .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
@@ -196,102 +116,115 @@
     <li><a href="index.html">Home</a></li>
     <li><a href="about.html">About</a></li>
     <li><a href="newsletters.html">Newsletters</a></li>
-    <li><a href="podcasts.html">Podcasts</a></li>
+    <li><a href="podcasts.html" class="active">Podcasts</a></li>
   </ul>
 </nav>
 
 <div class="page-header">
   <span class="page-label">Audio</span>
   <h1 class="page-title"><em>Best Foot</em><br>Backwards</h1>
-  <p class="page-desc">Conversations at the frontiers of heritage preservation — exploring the built environment, conservation science, and the stories behind South Asia's historic places.</p>
-  <a href="https://soundcloud.com/aptsouthasiachapter" target="_blank" class="soundcloud-link">
-    ♫ Listen on SoundCloud
-  </a>
+  <p class="page-desc">Hosted by APT South Asia Chapter — conversations with leading experts on heritage conservation, restoration practices, and the intersection of culture, technology, and sustainability across South Asia and beyond.</p>
+  <div class="header-links">
+    <a href="https://open.spotify.com/show/71S5RNk1evzD65SDRLpVSp" target="_blank" class="spotify-link">
+      <svg class="spotify-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+      Listen on Spotify
+    </a>
+    <a href="https://soundcloud.com/aptsouthasiachapter" target="_blank" class="sc-link">♫ SoundCloud</a>
+  </div>
 </div>
 
 <section class="podcasts-section">
 
-  <!-- FEATURED LATEST -->
+  <!-- EPISODE 5 - FEATURED -->
   <div class="featured-episode reveal">
     <div class="ep-art">
-      <div class="ep-latest-badge">Latest</div>
+      <div class="ep-latest-badge">Latest · Apr 2025</div>
       <div class="ep-art-icon">🎙️</div>
-      <p class="ep-art-label">Episode 5</p>
+      <p class="ep-art-ep">Episode 5</p>
     </div>
     <div class="ep-content">
-      <p class="ep-meta">Episode 5 · April 20, 2025</p>
-      <h2 class="ep-title">Best Foot Backwards — with Dr. Arun Menon</h2>
-      <p class="ep-desc">In our most recent episode, we sit down with Dr. Arun Menon for an in-depth conversation on heritage preservation — examining how specialists today navigate the intersection of tradition, technology, and advocacy in the South Asian context.</p>
-      <a href="https://soundcloud.com/aptsouthasiachapter/best-foot-backwards-with-dr-arun-menon" target="_blank" class="listen-btn">
-        <svg class="play-icon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-        Listen Now
-      </a>
+      <p class="ep-meta">Episode 5 · April 21, 2025 · 33 min</p>
+      <h2 class="ep-title">Best Foot Backwards — Episode 5</h2>
+      <p class="ep-guests">Guest: <strong>Dr. Arun Menon</strong> (Preservation Engineer)</p>
+      <p class="ep-desc">In this insightful episode, we sit down with renowned preservation engineer Dr. Arun Menon to explore the rich and layered world of heritage conservation in India and South Asia — examining the challenges, methodologies, and opportunities at the frontier of the field.</p>
+      <div class="ep-footer">
+        <span class="ep-duration">🕐 33 minutes</span>
+        <a href="https://open.spotify.com/episode/5gskXwc35LTW4bAwONjJ0y" target="_blank" class="listen-btn">
+          <svg class="play-icon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          Listen on Spotify
+        </a>
+      </div>
     </div>
   </div>
 
-  <!-- ALL EPISODES -->
+  <!-- EPISODES 1–4 LIST -->
   <span class="episodes-label">All Episodes</span>
   <div class="episodes-list">
 
-    <a href="https://soundcloud.com/aptsouthasiachapter/best-foot-backwards-with-dr-arun-menon" target="_blank" class="episode-row reveal">
+    <a href="https://open.spotify.com/episode/5gskXwc35LTW4bAwONjJ0y" target="_blank" class="episode-row reveal">
       <div class="ep-num">05</div>
       <div class="ep-info">
-        <p class="ep-info-meta">Apr 20, 2025</p>
-        <p class="ep-info-title">Best Foot Backwards — with Dr. Arun Menon</p>
+        <p class="ep-info-meta">Apr 21, 2025</p>
+        <p class="ep-info-title">Preservation Engineering in South Asia</p>
+        <p class="ep-info-sub">Guest: Dr. Arun Menon · Moderated by Khushi Shah</p>
       </div>
-      <span class="ep-arrow">→</span>
+      <div class="ep-right"><span class="ep-dur">33 min</span><span class="ep-arrow">→</span></div>
     </a>
 
-    <a href="https://soundcloud.com/aptsouthasiachapter/january-2025-podcast" target="_blank" class="episode-row reveal">
+    <a href="https://open.spotify.com/episode/27iRld1sQwKnOxicsNsywm" target="_blank" class="episode-row reveal">
       <div class="ep-num">04</div>
       <div class="ep-info">
-        <p class="ep-info-meta">Jan 18, 2025</p>
-        <p class="ep-info-title">January 2025 Podcast</p>
+        <p class="ep-info-meta">Jan 20, 2025</p>
+        <p class="ep-info-title">Water Heritage</p>
+        <p class="ep-info-sub">Guest: Saranya Dharshini · Moderated by Khushi Shah</p>
       </div>
-      <span class="ep-arrow">→</span>
+      <div class="ep-right"><span class="ep-dur">39 min</span><span class="ep-arrow">→</span></div>
     </a>
 
-    <a href="https://soundcloud.com/aptsouthasiachapter/october-2024-podcast" target="_blank" class="episode-row reveal">
+    <a href="https://open.spotify.com/episode/513vCOjlF2R8pgwXzBFGdC" target="_blank" class="episode-row reveal">
       <div class="ep-num">03</div>
       <div class="ep-info">
-        <p class="ep-info-meta">Oct 21, 2024</p>
-        <p class="ep-info-title">October 2024 Podcast</p>
+        <p class="ep-info-meta">Jan 18, 2025</p>
+        <p class="ep-info-title">Mumbai's World Heritage Journey</p>
+        <p class="ep-info-sub">Guest: Brinda Gaitonde Nayak · In conversation with Anuradha Parmar</p>
       </div>
-      <span class="ep-arrow">→</span>
+      <div class="ep-right"><span class="ep-dur">24 min</span><span class="ep-arrow">→</span></div>
     </a>
 
-    <a href="https://soundcloud.com/aptsouthasiachapter/july-2024-podcast" target="_blank" class="episode-row reveal">
+    <a href="https://open.spotify.com/episode/4YgpvsirIrQi3KnWYrGzAU" target="_blank" class="episode-row reveal">
       <div class="ep-num">02</div>
       <div class="ep-info">
-        <p class="ep-info-meta">Jul 18, 2024</p>
-        <p class="ep-info-title">July 2024 Podcast</p>
+        <p class="ep-info-meta">Jan 16, 2025</p>
+        <p class="ep-info-title">Intangible Cultural Heritage</p>
+        <p class="ep-info-sub">Guest: Ananya Bhattacharya · Moderated by Brinda Gaitonde Nayak</p>
       </div>
-      <span class="ep-arrow">→</span>
+      <div class="ep-right"><span class="ep-dur">15 min</span><span class="ep-arrow">→</span></div>
     </a>
 
-    <a href="https://soundcloud.com/aptsouthasiachapter/best-foot-backwards-historic-preservation-podcast" target="_blank" class="episode-row reveal">
+    <a href="https://open.spotify.com/episode/33AacuqCWVA1sIfcch2GJC" target="_blank" class="episode-row reveal">
       <div class="ep-num">01</div>
       <div class="ep-info">
-        <p class="ep-info-meta">Apr 8, 2024</p>
-        <p class="ep-info-title">Best Foot Backwards — Historic Preservation Podcast</p>
+        <p class="ep-info-meta">Jan 13, 2025 · Inaugural Episode</p>
+        <p class="ep-info-title">Launching the APTi South Asia Chapter</p>
+        <p class="ep-info-sub">Guests: Dr. Michael Tomlan & Khushi Shah · Moderated by Brinda Gaitonde Nayak</p>
       </div>
-      <span class="ep-arrow">→</span>
+      <div class="ep-right"><span class="ep-dur">22 min</span><span class="ep-arrow">→</span></div>
     </a>
 
   </div>
 </section>
 
-<!-- SOUNDCLOUD EMBED -->
+<!-- SPOTIFY EMBED -->
 <div class="embed-section">
-  <span class="embed-label">Stream on SoundCloud</span>
+  <span class="embed-label">Stream on Spotify</span>
   <h2 class="embed-title">All Episodes in One Place</h2>
   <div class="embed-wrapper">
     <iframe
+      src="https://open.spotify.com/embed/show/71S5RNk1evzD65SDRLpVSp?utm_source=generator&theme=0"
       width="100%"
-      height="450"
-      scrolling="no"
-      allow="autoplay"
-      src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/users/aptsouthasiachapter&color=%23c9a96e&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=false">
+      height="352"
+      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+      loading="lazy">
     </iframe>
   </div>
 </div>
@@ -306,7 +239,7 @@
       <p class="footer-col-title">Navigate</p>
       <ul class="footer-links">
         <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About</a></li>
+        <li><a href="about.html">About Us</a></li>
         <li><a href="newsletters.html">Newsletters</a></li>
         <li><a href="podcasts.html">Podcasts</a></li>
       </ul>
@@ -314,7 +247,7 @@
     <div>
       <p class="footer-col-title">External</p>
       <ul class="footer-links">
-        <li><a href="https://www.apti.org" target="_blank">APT International</a></li>
+        <li><a href="https://open.spotify.com/show/71S5RNk1evzD65SDRLpVSp" target="_blank">Spotify</a></li>
         <li><a href="https://soundcloud.com/aptsouthasiachapter" target="_blank">SoundCloud</a></li>
         <li><a href="https://issuu.com/aptsouthasiachapter" target="_blank">Issuu</a></li>
       </ul>
@@ -329,13 +262,8 @@
 <script>
   const reveals = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver((entries) => {
-    entries.forEach((e, i) => {
-      if (e.isIntersecting) {
-        setTimeout(() => e.target.classList.add('visible'), i * 100);
-        observer.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.1 });
+    entries.forEach((e, i) => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i * 100); observer.unobserve(e.target); } });
+  }, { threshold: 0.08 });
   reveals.forEach(el => observer.observe(el));
 </script>
 </body>
