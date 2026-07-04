@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Programs — APT South Asia Chapter</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --clay:    #c9a96e;
+      --stone:   #8b7355;
+      --cream:   #f5f0e8;
+      --ink:     #1a1614;
+      --dust:    #e8e0d0;
+      --moss:    #4a5240;
+      --rust:    #b85c38;
+      --parch:   #ede6d6;
+      --navy:    #1e3a5f;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); overflow-x: hidden; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 3rem;
+      background: rgba(245,240,232,0.93); backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--dust);
+    }
+    .nav-logo { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.1rem; color: var(--moss); text-decoration: none; }
+    .nav-logo span { color: var(--rust); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--ink); font-size: 0.82rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--rust); }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      background: var(--navy);
+      padding: 9rem 5rem 6rem;
+      position: relative; overflow: hidden;
+    }
+    .page-header::before {
+      content: 'PROGRAMS';
+      position: absolute; right: -1rem; top: 50%; transform: translateY(-50%);
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(5rem, 12vw, 14rem); font-weight: 900;
+      color: rgba(255,255,255,0.04); line-height: 1; white-space: nowrap; pointer-events: none;
+    }
+    .page-header::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0; height: 4px;
+      background: linear-gradient(to right, var(--rust), var(--clay), transparent);
+    }
+    .page-eyebrow { font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--clay); margin-bottom: 1rem; display: block; }
+    .page-title { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 5vw, 5rem); font-weight: 900; color: #fff; line-height: 1.05; margin-bottom: 1.5rem; }
+    .page-title em { font-style: italic; color: var(--clay); }
+    .page-desc { font-size: 1.05rem; color: rgba(255,255,255,0.6); max-width: 600px; line-height: 1.9; }
+
+    /* ── STATS BAR ── */
+    .stats-bar {
+      background: var(--clay); padding: 2rem 5rem;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem;
+    }
+    .stat { border-right: 1px solid rgba(26,22,20,0.2); padding-right: 2rem; }
+    .stat:last-child { border-right: none; }
+    .stat-num { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 900; color: var(--ink); line-height: 1; }
+    .stat-label { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(26,22,20,0.65); margin-top: 0.3rem; }
+
+    /* ── SECTION COMMON ── */
+    .section-intro { padding: 5rem 5rem 0; }
+    .section-label { font-size: 0.68rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--rust); margin-bottom: 0.6rem; display: block; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 2.5vw, 2.5rem); font-weight: 800; color: var(--moss); margin-bottom: 1rem; line-height: 1.15; }
+
+    /* ── PROGRAMS CONTAINER ── */
+    .programs-wrap { padding: 3rem 5rem 7rem; display: flex; flex-direction: column; gap: 4rem; }
+
+    /* ── BASE PROGRAM CARD ── */
+    .prog-card {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background: white;
+      box-shadow: 0 4px 30px rgba(0,0,0,0.07);
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .prog-card:hover { transform: translateY(-4px); box-shadow: 0 16px 50px rgba(0,0,0,0.12); }
+    .prog-card.reverse { direction: rtl; }
+    .prog-card.reverse > * { direction: ltr; }
+
+    /* Text side */
+    .prog-text {
+      padding: 3.5rem;
+      display: flex; flex-direction: column; justify-content: center;
+      position: relative;
+    }
+    .prog-type-tag {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+      font-weight: 600; margin-bottom: 1.2rem;
+      width: fit-content;
+    }
+    .tag-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .prog-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.4rem, 2vw, 1.9rem);
+      font-weight: 800; color: var(--navy);
+      line-height: 1.2; margin-bottom: 1rem;
+    }
+    .prog-desc { font-size: 0.93rem; line-height: 1.85; color: #555; margin-bottom: 2rem; }
+
+    /* Meta row */
+    .prog-meta { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-bottom: 2rem; }
+    .meta-chip {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: var(--parch); padding: 0.3rem 0.8rem;
+      font-size: 0.72rem; color: var(--stone); letter-spacing: 0.04em;
+    }
+    .meta-chip svg { width: 12px; height: 12px; fill: var(--clay); flex-shrink: 0; }
+
+    /* Bullets */
+    .prog-bullets { list-style: none; margin-bottom: 2rem; display: flex; flex-direction: column; gap: 0.5rem; }
+    .prog-bullets li {
+      font-size: 0.88rem; line-height: 1.6; color: #555;
+      padding-left: 1.2rem; position: relative;
+    }
+    .prog-bullets li::before {
+      content: ''; position: absolute; left: 0; top: 0.55em;
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--clay);
+    }
+
+    /* CTA button */
+    .prog-btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.85rem 2rem; text-decoration: none;
+      font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+      transition: all 0.25s; align-self: flex-start;
+    }
+    .prog-btn.primary { background: var(--navy); color: #fff; }
+    .prog-btn.primary:hover { background: var(--rust); }
+    .prog-btn.outline { border: 2px solid var(--navy); color: var(--navy); }
+    .prog-btn.outline:hover { background: var(--navy); color: #fff; }
+
+    /* Visual side */
+    .prog-visual {
+      position: relative; overflow: hidden;
+      min-height: 380px;
+    }
+    .prog-visual img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center;
+      display: block; transition: transform 0.5s;
+    }
+    .prog-card:hover .prog-visual img { transform: scale(1.04); }
+
+    /* Colour accents per program */
+    .prog-card.ambassador .prog-text { border-top: 4px solid var(--rust); }
+    .prog-card.ambassador .tag-dot { background: var(--rust); }
+    .prog-card.ambassador .prog-type-tag { color: var(--rust); }
+
+    .prog-card.volunteer .prog-text { border-top: 4px solid var(--clay); }
+    .prog-card.volunteer .tag-dot { background: var(--clay); }
+    .prog-card.volunteer .prog-type-tag { color: var(--stone); }
+
+    .prog-card.wood .prog-text { border-top: 4px solid #7a5c3a; }
+    .prog-card.wood .tag-dot { background: #7a5c3a; }
+    .prog-card.wood .prog-type-tag { color: #7a5c3a; }
+
+    .prog-card.mumbai .prog-text { border-top: 4px solid var(--moss); }
+    .prog-card.mumbai .tag-dot { background: var(--moss); }
+    .prog-card.mumbai .prog-type-tag { color: var(--moss); }
+
+    .prog-card.urban .prog-text { border-top: 4px solid var(--navy); }
+    .prog-card.urban .tag-dot { background: var(--navy); }
+    .prog-card.urban .prog-type-tag { color: var(--navy); }
+
+    /* Overlay text on visual (for cards without a photo) */
+    .visual-overlay {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 3rem; text-align: center;
+    }
+    .visual-bg-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 5rem; font-weight: 900; opacity: 0.12; line-height: 1;
+      color: white; position: absolute;
+    }
+
+    /* Speaker card inside visual */
+    .speaker-card {
+      position: absolute; bottom: 1.5rem; left: 1.5rem; right: 1.5rem;
+      background: rgba(30,58,95,0.92);
+      padding: 1rem 1.5rem;
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .speaker-card img {
+      width: 52px; height: 52px; border-radius: 50%;
+      object-fit: cover; flex-shrink: 0; border: 2px solid var(--clay);
+    }
+    .speaker-name { font-family: 'Playfair Display', serif; font-size: 0.95rem; font-weight: 700; color: #fff; }
+    .speaker-role { font-size: 0.72rem; color: var(--clay); letter-spacing: 0.05em; }
+
+    /* Event date badge */
+    .event-badge {
+      position: absolute; top: 1.5rem; right: 1.5rem;
+      background: var(--clay); color: var(--ink);
+      padding: 0.5rem 1rem; font-size: 0.7rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+    }
+
+    /* ── PAST EVENTS NOTE ── */
+    .past-note {
+      background: var(--parch); border-left: 4px solid var(--clay);
+      padding: 1rem 1.5rem; margin-top: 1.5rem;
+      font-size: 0.82rem; color: var(--stone); line-height: 1.6;
+    }
+    .past-note strong { color: var(--moss); }
+
+    /* ── AMBASSADOR BENEFITS BOX ── */
+    .benefits-box {
+      background: var(--navy); padding: 2rem;
+      margin-top: 1.5rem;
+    }
+    .benefits-title { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--clay); margin-bottom: 1rem; }
+    .benefits-list { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+    .benefits-list li { font-size: 0.82rem; color: rgba(255,255,255,0.8); padding-left: 1.2rem; position: relative; line-height: 1.5; }
+    .benefits-list li::before { content: '✦'; position: absolute; left: 0; color: var(--clay); font-size: 0.6rem; top: 0.3em; }
+
+    /* ── CTA BOTTOM STRIP ── */
+    .cta-strip {
+      background: var(--moss); padding: 4.5rem 5rem;
+      display: flex; align-items: center; justify-content: space-between; gap: 3rem;
+    }
+    .cta-strip-text {}
+    .cta-strip-eyebrow { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--clay); margin-bottom: 0.5rem; }
+    .cta-strip-title { font-family: 'Playfair Display', serif; font-size: 1.9rem; font-weight: 800; color: #fff; line-height: 1.2; }
+    .cta-strip-btn {
+      display: inline-block; background: var(--clay); color: var(--ink);
+      padding: 1rem 2.5rem; text-decoration: none;
+      font-size: 0.8rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+      white-space: nowrap; transition: background 0.2s;
+    }
+    .cta-strip-btn:hover { background: #d4b07e; }
+
+    /* ── FOOTER ── */
+    footer { background: var(--ink); padding: 4rem 5rem 2rem; }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 4rem; margin-bottom: 3rem; }
+    .footer-brand { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: #fff; margin-bottom: 1rem; }
+    .footer-brand span { color: var(--clay); }
+    .footer-tagline { font-size: 0.9rem; line-height: 1.7; color: #888; }
+    .footer-col-title { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--clay); margin-bottom: 1.2rem; }
+    .footer-links { list-style: none; }
+    .footer-links li { margin-bottom: 0.7rem; }
+    .footer-links a { color: #999; text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-links a:hover { color: #fff; }
+    .footer-bottom { border-top: 1px solid #2a2a2a; padding-top: 2rem; display: flex; justify-content: space-between; align-items: center; }
+    .footer-copy, .footer-apt { font-size: 0.8rem; color: #666; }
+
+    /* ── REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 960px) {
+      nav { padding: 1rem 1.5rem; } .nav-links { gap: 1.2rem; }
+      .page-header { padding: 7rem 2rem 3rem; }
+      .stats-bar { grid-template-columns: 1fr 1fr; padding: 2rem; }
+      .section-intro { padding: 3rem 2rem 0; }
+      .programs-wrap { padding: 2rem 2rem 5rem; }
+      .prog-card, .prog-card.reverse { grid-template-columns: 1fr; direction: ltr; }
+      .prog-visual { min-height: 260px; order: -1; }
+      .prog-text { padding: 2rem; }
+      .cta-strip { flex-direction: column; padding: 3rem 2rem; gap: 2rem; }
+      .footer-top { grid-template-columns: 1fr; gap: 2rem; }
+      .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">APT <span>South Asia</span> Chapter</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="newsletters.html">Newsletters</a></li>
+    <li><a href="podcasts.html">Podcasts</a></li>
+    <li><a href="resources.html">Resources</a></li>
+    <li><a href="programs.html" class="active">Programs</a></li>
+  </ul>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <span class="page-eyebrow">Initiatives & Activities</span>
+  <h1 class="page-title">Our <em>Programs</em></h1>
+  <p class="page-desc">From campus outreach and volunteering to expert-led lectures and workshops — our programmes connect heritage professionals, students, and communities across South Asia and beyond.</p>
+</div>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stat"><div class="stat-num">5+</div><div class="stat-label">Programmes & Initiatives</div></div>
+  <div class="stat"><div class="stat-num">2019</div><div class="stat-label">Active Since</div></div>
+  <div class="stat"><div class="stat-num">South Asia</div><div class="stat-label">Region of Impact</div></div>
+  <div class="stat"><div class="stat-num">Global</div><div class="stat-label">Expert Network</div></div>
+</div>
+
+<!-- SECTION INTRO -->
+<div class="section-intro reveal">
+  <span class="section-label">What We Do</span>
+  <h2 class="section-title">Programmes that Educate, Connect & Preserve</h2>
+</div>
+
+<!-- ═══ PROGRAMS ═══ -->
+<div class="programs-wrap">
+
+  <!-- ── 1. CAMPUS AMBASSADOR ── -->
+  <div class="prog-card ambassador reveal">
+    <div class="prog-text">
+      <div class="prog-type-tag"><span class="tag-dot"></span>Open Application · Now Hiring</div>
+      <h2 class="prog-title">Campus Ambassador Programme</h2>
+      <p class="prog-desc">Be the face of APT South Asia Chapter at your institution. Our Campus Ambassadors serve as official representatives, helping grow awareness of heritage conservation among students and faculty across India.</p>
+
+      <div class="prog-meta">
+        <span class="meta-chip">
+          <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>
+          Campus-based, India
+        </span>
+        <span class="meta-chip">
+          <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+          Ongoing Intake
+        </span>
+      </div>
+
+      <p style="font-size:0.8rem;font-weight:600;color:var(--navy);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.8rem;">Roles & Responsibilities</p>
+      <ul class="prog-bullets">
+        <li>Circulate the organisation's newsletter among students and faculty</li>
+        <li>Promote key updates, initiatives, and upcoming events on campus</li>
+        <li>Organise and lead events, workshops, and awareness sessions on campus</li>
+        <li>Encourage and assist students in enrolling for relevant programmes or initiatives</li>
+        <li>Reach out to societies and academic departments for collaborations</li>
+        <li>Connect with external organisations, NGOs, and media for featuring in APT Newsletters</li>
+      </ul>
+
+      <div class="benefits-box">
+        <p class="benefits-title">Benefits of Being a Campus Ambassador</p>
+        <ul class="benefits-list">
+          <li>Recognition as an official APT South Asia representative</li>
+          <li>Networking opportunities with global heritage professionals</li>
+          <li>Certificate of appreciation upon successful completion of tenure</li>
+          <li>Opportunity to be featured on the APT South Asia Chapter website</li>
+          <li>One-on-one mentorship from board members</li>
+          <li>Represent the organisation at campus events, conferences and seminars</li>
+        </ul>
+      </div>
+
+      <div style="margin-top:2rem;">
+        <a href="mailto:aptsouthasiachapter@gmail.com?subject=Campus Ambassador Application" class="prog-btn primary">Apply Now — Send Resume &amp; Portfolio →</a>
+        <p style="font-size:0.78rem;color:#888;margin-top:0.8rem;">Send your resume and portfolio to <strong>aptsouthasiachapter@gmail.com</strong></p>
+      </div>
+    </div>
+
+    <div class="prog-visual" style="background: var(--navy);">
+      <div class="visual-overlay" style="background: linear-gradient(135deg, #1e3a5f 0%, #2a4a70 100%);">
+        <span class="visual-bg-text">AMBASSADOR</span>
+        <div style="z-index:1;text-align:center;padding:2rem;">
+          <div style="font-size:4rem;margin-bottom:1.5rem;">🎓</div>
+          <p style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:800;color:#fff;margin-bottom:0.8rem;line-height:1.2;">Call for Applications</p>
+          <p style="font-size:0.9rem;color:rgba(255,255,255,0.7);margin-bottom:2rem;line-height:1.6;">Become an official representative of APT South Asia Chapter at your university</p>
+          <div style="background:var(--clay);display:inline-block;padding:0.6rem 1.5rem;font-size:0.75rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--ink);">#NowHiring</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 2. UNESCO WORLD HERITAGE VOLUNTEERS 2024 ── -->
+  <div class="prog-card volunteer reverse reveal">
+    <div class="prog-text">
+      <div class="prog-type-tag"><span class="tag-dot"></span>Volunteering Programme</div>
+      <h2 class="prog-title">UNESCO World Heritage Volunteers 2024</h2>
+      <p class="prog-desc">The UNESCO World Heritage Volunteers initiative supports the preservation of World Heritage Sites through active volunteer participation. APT South Asia Chapter co-organised the 2024 edition focused on Ahmedabad — India's first UNESCO World Heritage City.</p>
+
+      <div class="prog-meta">
+        <span class="meta-chip">
+          <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>
+          Ahmedabad, India
+        </span>
+        <span class="meta-chip">
+          <svg viewBox="0 0 24 24"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg>
+          7–18 August 2024
+        </span>
+        <span class="meta-chip">
+          <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg>
+          Registration Deadline: 10 July 2024
+        </span>
+      </div>
+
+      <ul class="prog-bullets">
+        <li>Focused on Environmental Conservation and Sustainability within Ahmedabad's World Heritage precinct</li>
+        <li>Hands-on conservation activities at heritage precincts of the old city (Pol houses, step wells, havelis)</li>
+        <li>Promotes sustainable practices and protection of tangible and intangible heritage</li>
+        <li>Open to Indian and international participants</li>
+      </ul>
+
+      <div class="prog-meta" style="margin-top:0.5rem;">
+        <span class="meta-chip" style="background:#fff3e8;color:var(--rust);">₹11,000 — Indian Nationals</span>
+        <span class="meta-chip" style="background:#fff3e8;color:var(--rust);">$350 USD — Foreign Nationals</span>
+      </div>
+
+      <div class="past-note">
+        <strong>Past Programme (2024):</strong> Registration for this edition is now closed. Stay tuned for future UNESCO World Heritage Volunteers editions organised or co-supported by APT South Asia Chapter.
+      </div>
+    </div>
+
+    <div class="prog-visual" style="background: #c5b08a; display:flex; align-items:center; justify-content:center; overflow:hidden;">
+      <!-- decorative architectural heritage pattern -->
+      <div style="position:absolute;inset:0;background:linear-gradient(160deg,#b8a070 0%,#8b7355 100%);"></div>
+      <div style="z-index:1;text-align:center;padding:2.5rem;">
+        <p style="font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:1rem;">UNESCO World Heritage Volunteers</p>
+        <p style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:800;color:#fff;line-height:1.25;margin-bottom:0.5rem;">Ahmedabad:</p>
+        <p style="font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:400;font-style:italic;color:var(--clay);margin-bottom:1.5rem;">Through the Lens of Heritage</p>
+        <div style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);padding:1rem 1.5rem;display:inline-block;">
+          <p style="font-size:0.85rem;color:#fff;font-weight:600;">7<sup>th</sup> Aug – 18<sup>th</sup> Aug 2024</p>
+          <p style="font-size:0.72rem;color:rgba(255,255,255,0.65);margin-top:0.3rem;">India's First World Heritage City</p>
+        </div>
+      </div>
+      <div class="event-badge">2024 Edition</div>
+    </div>
+  </div>
+
+  <!-- ── 3. CHALLENGES IN WOOD CONSERVATION ── -->
+  <div class="prog-card wood reveal">
+    <div class="prog-text">
+      <div class="prog-type-tag"><span class="tag-dot"></span>Expert Lecture · Webinar Series</div>
+      <h2 class="prog-title">Challenges in Wood Conservation</h2>
+      <p class="prog-desc">A specialist webinar featuring Ron Anthony, President and Wood Scientist at Anthony & Associates — a 2002 James Marston Fitch Foundation Grant recipient and APTI Fellow. This session explored the performance of wood in historic structures and forensic investigation methods.</p>
+
+      <div class="prog-meta">
+        <span class="meta-chip">
+          <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>
+          Zoom (Online)
+        </span>
+        <span class="meta-chip">
+          <svg viewBox="0 0 24 24"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg>
+          7 August 2023 · 8:00 PM IST
+        </span>
+        <span class="meta-chip">
+          <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+          Free for WHV Participants, KHC & APT Members
+        </span>
+      </div>
+
+      <ul class="prog-bullets">
+        <li>Evaluating the performance of wood in historic structures</li>
+        <li>Conducting forensic investigations on historic building materials</li>
+        <li>International standards and best practices in wood conservation</li>
+        <li>Authored 120+ publications; consulted across 6 continents</li>
+      </ul>
+
+      <div class="past-note">
+        <strong>Past Event (August 2023):</strong> This event has concluded. Organised by APT South Asia Chapter in collaboration with Khushtar Heritage Collective (KHC). Contact us to enquire about future conservation lectures.
+      </div>
+    </div>
+
+    <div class="prog-visual" style="background:#4a3520;">
+      <div style="position:absolute;inset:0;background:linear-gradient(180deg,#5c4428 0%,#2d1e0f 100%);"></div>
+      <div style="z-index:1;position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2.5rem;text-align:center;">
+        <span style="font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--clay);margin-bottom:1rem;">Expert Lecture Series</span>
+        <p style="font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:800;color:#fff;line-height:1.25;margin-bottom:1.5rem;">Challenges in<br>Wood Conservation</p>
+        <div style="width:80px;height:80px;border-radius:50%;background:var(--clay);display:flex;align-items:center;justify-content:center;font-size:2rem;margin-bottom:1.2rem;">🪵</div>
+        <p style="font-size:0.82rem;color:rgba(255,255,255,0.65);line-height:1.6;">Forensic investigation · Historic timber structures · International conservation standards</p>
+      </div>
+      <div class="event-badge" style="background:#7a5c3a;">7 Aug 2023</div>
+      <div style="position:absolute;bottom:1.5rem;left:1.5rem;right:1.5rem;background:rgba(30,20,10,0.85);padding:1rem 1.2rem;">
+        <p style="font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:700;color:#fff;">Ron Anthony</p>
+        <p style="font-size:0.72rem;color:var(--clay);margin-top:0.2rem;">Wood Scientist · President, Anthony & Associates · APTI Fellow</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 4. A LONELY CONSERVATION JOURNEY — MUMBAI ── -->
+  <div class="prog-card mumbai reverse reveal">
+    <div class="prog-text">
+      <div class="prog-type-tag"><span class="tag-dot"></span>Webinar · Conservation Talk</div>
+      <h2 class="prog-title">A Lonely Conservation Journey in the City of Redevelopment (Mumbai)</h2>
+      <p class="prog-desc">An insightful webinar with Vikas Dilawari, Conservation Architect, exploring the complex challenges of conserving Mumbai's extraordinary architectural heritage in a city defined by constant redevelopment pressure.</p>
+
+      <div class="prog-meta">
+        <span class="meta-chip">
+          <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>
+          Zoom (Online)
+        </span>
+        <span class="meta-chip">
+          <svg viewBox="0 0 24 24"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg>
+          Saturday, 21 November 2020
+        </span>
+        <span class="meta-chip">
+          <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg>
+          9:00 AM EST · 7:30 PM IST
+        </span>
+      </div>
+
+      <ul class="prog-bullets">
+        <li>Mumbai's architectural heritage under threat from redevelopment</li>
+        <li>Navigating legal and policy frameworks for heritage conservation in Indian cities</li>
+        <li>Case studies of conservation projects in Mumbai's historic precincts</li>
+        <li>The role of the conservation architect as advocate in urban contexts</li>
+      </ul>
+
+      <div class="past-note">
+        <strong>Past Event (November 2020):</strong> This was one of APT South Asia Chapter's early webinars, establishing our commitment to connecting global practitioners with South Asian heritage professionals.
+      </div>
+    </div>
+
+    <div class="prog-visual" style="background:#1e2a1e;">
+      <div style="position:absolute;inset:0;background:linear-gradient(160deg,#1e3a2a 0%,#0f1e14 100%);"></div>
+      <div style="z-index:1;position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2.5rem;text-align:center;">
+        <span style="font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--clay);margin-bottom:1rem;">Conservation Webinar · November 2020</span>
+        <p style="font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:800;color:#fff;line-height:1.25;margin-bottom:1.5rem;">A Lonely Conservation Journey in the City of Redevelopment</p>
+        <p style="font-size:1rem;font-weight:600;color:var(--clay);">Mumbai</p>
+      </div>
+      <div class="event-badge" style="background:var(--moss);">Nov 2020</div>
+      <div style="position:absolute;bottom:1.5rem;left:1.5rem;right:1.5rem;background:rgba(10,20,10,0.88);padding:1rem 1.2rem;">
+        <p style="font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:700;color:#fff;">Vikas Dilawari</p>
+        <p style="font-size:0.72rem;color:var(--clay);margin-top:0.2rem;">Conservation Architect · Mumbai</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 5. URBAN HERITAGE CONSERVATION — EMPOWERING LOCAL COMMUNITIES ── -->
+  <div class="prog-card urban reveal">
+    <div class="prog-text">
+      <div class="prog-type-tag"><span class="tag-dot"></span>Webinar · Community & Policy</div>
+      <h2 class="prog-title">Urban Heritage Conservation: Pathways to Empower Local Communities</h2>
+      <p class="prog-desc">A webinar with Kamalika Bose, Historic Preservation Planner, examining how heritage conservation in urban environments can become a powerful pathway to community empowerment — drawing on case studies from Indian cities and international best practice.</p>
+
+      <div class="prog-meta">
+        <span class="meta-chip">
+          <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>
+          Zoom (Online)
+        </span>
+        <span class="meta-chip">
+          <svg viewBox="0 0 24 24"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg>
+          Thursday, 4 March 2021
+        </span>
+        <span class="meta-chip">
+          <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg>
+          9:30 AM IST · 11 PM EST
+        </span>
+      </div>
+
+      <ul class="prog-bullets">
+        <li>Heritage conservation as a tool for local community empowerment</li>
+        <li>Policy frameworks and participatory approaches in urban heritage management</li>
+        <li>Case studies from Indian cities and international urban heritage contexts</li>
+        <li>Engaging local communities as stakeholders and stewards of heritage</li>
+        <li>Pathways for youth and marginalised communities in the conservation sector</li>
+      </ul>
+
+      <div class="past-note">
+        <strong>Past Event (March 2021):</strong> This webinar was part of our ongoing effort to connect heritage practice with policy, planning, and community engagement — core pillars of APT South Asia Chapter's mission.
+      </div>
+    </div>
+
+    <div class="prog-visual" style="background:var(--navy);">
+      <div style="position:absolute;inset:0;background:linear-gradient(160deg,#1e3a5f 0%,#0f1e30 100%);"></div>
+      <div style="z-index:1;position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2.5rem;text-align:center;">
+        <span style="font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--clay);margin-bottom:1rem;">Heritage Webinar · March 2021</span>
+        <p style="font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:800;color:#fff;line-height:1.25;margin-bottom:0.8rem;">Urban Heritage Conservation:</p>
+        <p style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:400;font-style:italic;color:var(--clay);margin-bottom:1.5rem;">Pathways to Empower Local Communities</p>
+        <div style="font-size:3rem;margin-bottom:1rem;">🏙️</div>
+      </div>
+      <div class="event-badge">Mar 2021</div>
+      <div style="position:absolute;bottom:1.5rem;left:1.5rem;right:1.5rem;background:rgba(10,15,30,0.9);padding:1rem 1.2rem;">
+        <p style="font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:700;color:#fff;">Kamalika Bose</p>
+        <p style="font-size:0.72rem;color:var(--clay);margin-top:0.2rem;">Historic Preservation Planner</p>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /programs-wrap -->
+
+<!-- CTA STRIP -->
+<div class="cta-strip">
+  <div class="cta-strip-text">
+    <p class="cta-strip-eyebrow">Get Involved</p>
+    <h3 class="cta-strip-title">Want to partner on a programme<br>or speak at an event?</h3>
+  </div>
+  <a href="mailto:aptsouthasiachapter@gmail.com" class="cta-strip-btn">Contact Us →</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">APT <span>South Asia</span> Chapter</div>
+      <p class="footer-tagline">Serving the South Asia region through education, training, and outreach in preservation technology since 2019.</p>
+    </div>
+    <div>
+      <p class="footer-col-title">Navigate</p>
+      <ul class="footer-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="newsletters.html">Newsletters</a></li>
+        <li><a href="podcasts.html">Podcasts</a></li>
+        <li><a href="resources.html">Resources</a></li>
+        <li><a href="programs.html">Programs</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">External</p>
+      <ul class="footer-links">
+        <li><a href="https://www.apti.org" target="_blank">APT International</a></li>
+        <li><a href="https://open.spotify.com/show/71S5RNk1evzD65SDRLpVSp" target="_blank">Spotify</a></li>
+        <li><a href="https://issuu.com/aptsouthasiachapter" target="_blank">Issuu</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2025 APT South Asia Chapter. All rights reserved.</p>
+    <p class="footer-apt">A regional chapter of APT International</p>
+  </div>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 100);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.06 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
