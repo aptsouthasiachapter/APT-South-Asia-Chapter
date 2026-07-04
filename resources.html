@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resources — APT South Asia Chapter</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --clay: #c9a96e;
+      --stone: #8b7355;
+      --cream: #f5f0e8;
+      --ink: #1a1614;
+      --dust: #e8e0d0;
+      --moss: #4a5240;
+      --rust: #b85c38;
+      --parchment: #ede6d6;
+      --sage: #6b7560;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); overflow-x: hidden; }
+
+    /* ── NAV ── */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1.2rem 3rem; background: rgba(245,240,232,0.93); backdrop-filter: blur(10px); border-bottom: 1px solid var(--dust); }
+    .nav-logo { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.1rem; color: var(--moss); letter-spacing: 0.02em; text-decoration: none; }
+    .nav-logo span { color: var(--rust); }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--ink); font-size: 0.85rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--rust); }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      background: var(--ink);
+      padding: 9rem 5rem 5rem;
+      position: relative; overflow: hidden;
+    }
+    .page-header::before {
+      content: 'RESOURCES';
+      position: absolute; right: -2rem; top: 50%; transform: translateY(-50%);
+      font-family: 'Playfair Display', serif; font-size: clamp(5rem, 12vw, 13rem); font-weight: 900;
+      color: rgba(255,255,255,0.03); line-height: 1; white-space: nowrap; pointer-events: none;
+    }
+    /* diagonal accent line */
+    .page-header::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0;
+      width: 100%; height: 3px;
+      background: linear-gradient(to right, var(--rust), var(--clay), transparent);
+    }
+    .page-eyebrow { font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--clay); margin-bottom: 1rem; display: block; }
+    .page-title { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 5vw, 5rem); font-weight: 900; color: var(--cream); line-height: 1.05; margin-bottom: 1.5rem; }
+    .page-title em { font-style: italic; color: var(--clay); }
+    .page-desc { font-size: 1.05rem; color: rgba(245,240,232,0.65); max-width: 640px; line-height: 1.9; }
+
+    /* ── CATEGORY TABS ── */
+    .tab-bar {
+      background: var(--parchment);
+      padding: 0 5rem;
+      border-bottom: 2px solid var(--dust);
+      display: flex; gap: 0; overflow-x: auto;
+      position: sticky; top: 65px; z-index: 50;
+    }
+    .tab-btn {
+      background: none; border: none; cursor: pointer;
+      padding: 1.2rem 1.8rem; font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem; font-weight: 500; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--stone);
+      border-bottom: 3px solid transparent; margin-bottom: -2px;
+      transition: color 0.2s, border-color 0.2s; white-space: nowrap;
+    }
+    .tab-btn:hover { color: var(--moss); }
+    .tab-btn.active { color: var(--rust); border-bottom-color: var(--rust); font-weight: 600; }
+
+    /* ── MAIN CONTENT ── */
+    .main { padding: 5rem 5rem 7rem; }
+
+    /* section intro */
+    .category-section { margin-bottom: 6rem; }
+    .cat-header { display: flex; align-items: flex-end; gap: 2rem; margin-bottom: 3rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--dust); }
+    .cat-icon { font-size: 2.5rem; flex-shrink: 0; }
+    .cat-eyebrow { font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--rust); margin-bottom: 0.4rem; }
+    .cat-title { font-family: 'Playfair Display', serif; font-size: 1.9rem; font-weight: 800; color: var(--moss); line-height: 1.1; }
+    .cat-count { margin-left: auto; font-family: 'Playfair Display', serif; font-size: 3.5rem; font-weight: 900; color: var(--dust); line-height: 1; flex-shrink: 0; }
+
+    /* ── UNIVERSITY CARDS ── */
+    .cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+
+    .uni-card {
+      background: white;
+      border-top: 3px solid var(--dust);
+      padding: 1.8rem;
+      display: flex; flex-direction: column;
+      transition: border-top-color 0.25s, transform 0.25s, box-shadow 0.25s;
+      position: relative;
+    }
+    .uni-card:hover {
+      border-top-color: var(--clay);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+    }
+    .uni-card.featured {
+      grid-column: span 2;
+      border-top-color: var(--rust);
+      background: linear-gradient(135deg, white 0%, #faf7f2 100%);
+    }
+    .uni-card.featured:hover { border-top-color: var(--clay); }
+
+    .card-city {
+      font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--clay); margin-bottom: 0.5rem;
+      display: flex; align-items: center; gap: 0.4rem;
+    }
+    .city-dot { width: 5px; height: 5px; background: var(--clay); border-radius: 50%; }
+    .card-uni { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 700; color: var(--moss); line-height: 1.3; margin-bottom: 0.5rem; }
+    .uni-card.featured .card-uni { font-size: 1.25rem; }
+    .card-course { font-size: 0.82rem; color: var(--rust); font-weight: 600; margin-bottom: 0.8rem; line-height: 1.4; }
+    .card-desc { font-size: 0.85rem; line-height: 1.75; color: #666; margin-bottom: 1.2rem; flex: 1; }
+
+    .card-footer { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--dust); }
+    .card-type-badge {
+      font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase;
+      background: var(--cream); color: var(--stone);
+      padding: 0.25rem 0.6rem; border: 1px solid var(--dust);
+    }
+    .card-type-badge.online { background: #eef4ee; color: var(--moss); border-color: #c5d4c3; }
+    .card-type-badge.govt { background: #f4eeee; color: var(--rust); border-color: #dfc8c0; }
+
+    .card-link {
+      font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--rust); text-decoration: none; font-weight: 600;
+      display: inline-flex; align-items: center; gap: 0.3rem;
+      border-bottom: 1px solid transparent; transition: border-color 0.2s;
+      white-space: nowrap;
+    }
+    .card-link:hover { border-bottom-color: var(--rust); }
+    .card-link svg { width: 12px; height: 12px; fill: currentColor; }
+
+    /* ── ONLINE COURSES ── */
+    .online-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .online-card {
+      background: var(--moss); padding: 2rem;
+      display: flex; flex-direction: column;
+      transition: transform 0.25s;
+    }
+    .online-card:hover { transform: translateY(-3px); }
+    .online-card .card-city { color: var(--clay); }
+    .online-card .card-uni { color: var(--cream); font-size: 1rem; }
+    .online-card .card-course { color: var(--clay); }
+    .online-card .card-desc { color: rgba(245,240,232,0.65); }
+    .online-card .card-footer { border-top-color: rgba(255,255,255,0.1); }
+    .online-card .card-link { color: var(--clay); }
+    .online-card .card-link:hover { border-bottom-color: var(--clay); }
+    .online-card .card-type-badge { background: rgba(255,255,255,0.08); color: var(--clay); border-color: rgba(201,169,110,0.3); }
+
+    /* ── SHORT COURSES ── */
+    .short-list { display: flex; flex-direction: column; gap: 0; }
+    .short-row {
+      display: grid; grid-template-columns: 3fr 2fr 1fr auto;
+      align-items: center; gap: 2rem;
+      padding: 1.5rem 1.8rem; background: white;
+      border-bottom: 1px solid var(--dust);
+      text-decoration: none; color: inherit;
+      transition: background 0.2s;
+    }
+    .short-row:hover { background: var(--parchment); }
+    .short-title { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: var(--moss); }
+    .short-org { font-size: 0.82rem; color: var(--stone); }
+    .short-type { font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--rust); }
+    .short-arrow { color: var(--dust); font-size: 1.2rem; transition: color 0.2s, transform 0.2s; }
+    .short-row:hover .short-arrow { color: var(--rust); transform: translateX(4px); }
+
+    /* ── CALL TO ACTION ── */
+    .cta-bar {
+      background: var(--clay); padding: 4rem 5rem;
+      display: flex; align-items: center; justify-content: space-between; gap: 3rem;
+    }
+    .cta-text {}
+    .cta-eyebrow { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(26,22,20,0.65); margin-bottom: 0.5rem; }
+    .cta-title { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 800; color: var(--ink); line-height: 1.2; }
+    .cta-btn { display: inline-block; background: var(--ink); color: var(--cream); padding: 1rem 2.5rem; text-decoration: none; font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600; white-space: nowrap; transition: background 0.2s; }
+    .cta-btn:hover { background: var(--moss); }
+
+    /* ── FOOTER ── */
+    footer { background: var(--ink); padding: 4rem 5rem 2rem; }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 4rem; margin-bottom: 3rem; }
+    .footer-brand { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: var(--cream); margin-bottom: 1rem; }
+    .footer-brand span { color: var(--clay); }
+    .footer-tagline { font-size: 0.9rem; line-height: 1.7; color: #888; }
+    .footer-col-title { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--clay); margin-bottom: 1.2rem; }
+    .footer-links { list-style: none; }
+    .footer-links li { margin-bottom: 0.7rem; }
+    .footer-links a { color: #999; text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--cream); }
+    .footer-bottom { border-top: 1px solid #2a2a2a; padding-top: 2rem; display: flex; justify-content: space-between; align-items: center; }
+    .footer-copy { font-size: 0.8rem; color: #666; }
+    .footer-apt { font-size: 0.8rem; color: #555; }
+
+    /* ── REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(25px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 1100px) {
+      .cards-grid { grid-template-columns: 1fr 1fr; }
+      .uni-card.featured { grid-column: span 2; }
+    }
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; } .nav-links { gap: 1.5rem; }
+      .page-header { padding: 7rem 2rem 3rem; }
+      .tab-bar { padding: 0 2rem; }
+      .main { padding: 3rem 2rem 5rem; }
+      .cards-grid { grid-template-columns: 1fr; }
+      .uni-card.featured { grid-column: span 1; }
+      .online-grid { grid-template-columns: 1fr; }
+      .short-row { grid-template-columns: 1fr auto; gap: 1rem; }
+      .short-org, .short-type { display: none; }
+      .cta-bar { flex-direction: column; padding: 3rem 2rem; gap: 2rem; }
+      .footer-top { grid-template-columns: 1fr; gap: 2rem; }
+      .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">APT <span>South Asia</span> Chapter</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="newsletters.html">Newsletters</a></li>
+    <li><a href="podcasts.html">Podcasts</a></li>
+    <li><a href="resources.html" class="active">Resources</a></li>
+  </ul>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <span class="page-eyebrow">Education & Learning</span>
+  <h1 class="page-title">Heritage <em>Resources</em></h1>
+  <p class="page-desc">A curated directory of universities, courses, and programmes across India offering education in heritage conservation, architectural conservation, and heritage management — to help students and professionals navigate the field.</p>
+</div>
+
+<!-- TAB BAR -->
+<div class="tab-bar">
+  <button class="tab-btn active" onclick="scrollToSection('degree')">Degree Programmes</button>
+  <button class="tab-btn" onclick="scrollToSection('management')">Heritage Management</button>
+  <button class="tab-btn" onclick="scrollToSection('online')">Online & Free Courses</button>
+  <button class="tab-btn" onclick="scrollToSection('shortcourses')">Short Courses</button>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main">
+
+  <!-- ═══ SECTION 1: DEGREE PROGRAMMES ═══ -->
+  <div class="category-section" id="degree">
+    <div class="cat-header reveal">
+      <div class="cat-icon">🏛️</div>
+      <div>
+        <p class="cat-eyebrow">Architecture & Conservation</p>
+        <h2 class="cat-title">Master's Degree Programmes in India</h2>
+      </div>
+      <div class="cat-count">09</div>
+    </div>
+
+    <div class="cards-grid">
+
+      <!-- SPA DELHI - FEATURED -->
+      <div class="uni-card featured reveal">
+        <p class="card-city"><span class="city-dot"></span>New Delhi</p>
+        <h3 class="card-uni">School of Planning and Architecture (SPA), Delhi</h3>
+        <p class="card-course">M.Arch. in Architectural Conservation</p>
+        <p class="card-desc">One of India's premier institutes for architecture and planning, SPA Delhi offers a dedicated postgraduate programme in Architectural Conservation — training professionals in the theory, practice, and technology of conserving historic buildings and environments.</p>
+        <div class="card-footer">
+          <span class="card-type-badge govt">Govt. Institute</span>
+          <a href="https://www.spa.ac.in" target="_blank" class="card-link">Visit Website <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14l-4-4 1.41-1.41L14 14.17V7h2v7.17l2.59-2.58L20 13l-6 6z"/></svg></a>
+        </div>
+      </div>
+
+      <div class="uni-card reveal">
+        <p class="card-city"><span class="city-dot"></span>Bhopal</p>
+        <h3 class="card-uni">School of Planning and Architecture (SPA), Bhopal</h3>
+        <p class="card-course">M.Arch. in Conservation</p>
+        <p class="card-desc">Established as an Institute of National Importance, SPA Bhopal trains students in conservation theory, philosophy, process, and techniques for maintenance and management of heritage structures.</p>
+        <div class="card-footer">
+          <span class="card-type-badge govt">Govt. Institute</span>
+          <a href="https://www.spab.ac.in" target="_blank" class="card-link">Visit Website <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14l-4-4 1.41-1.41L14 14.17V7h2v7.17l2.59-2.58L20 13l-6 6z"/></svg></a>
+        </div>
+      </div>
+
+      <div class="uni-card reveal">
+        <p class="card-city"><span class="city-dot"></span>Vijayawada</p>
+        <h3 class="card-uni">School of Planning and Architecture (SPA), Vijayawada</h3>
+        <p class="card-course">M.Arch. in Sustainable Architecture</p>
+        <p class="card-desc">With a focus on sustainable architecture that incorporates heritage-related aspects, this programme bridges contemporary design thinking with the conservation of South India's rich building traditions.</p>
+        <div class="card-footer">
+          <span class="card-type-badge govt">Govt. Institute</span>
+          <a href="https://www.spav.ac.in" target="_blank" class="card-link">Visit Website <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14l-4-4 1.41-1.41L14 14.17V7h2v7.17l2.59-2.58L20 13l-6 6z"/></svg></a>
+        </div>
+      </div>
+
+      <div class="uni-card reveal">
+        <p class="card-city"><span class="city-dot"></span>Roorkee</p>
+        <h3 class="card-uni">Indian Institute of Technology (IIT) Roorkee</h3>
+        <p class="card-course">M.Arch. in Conservation and Regeneration</p>
+        <p class="card-desc">IIT Roorkee's architecture department offers a specialized M.Arch. programme combining conservation theory and practice with regeneration strategies for historic buildings and urban environments.</p>
+        <div class="card-footer">
+          <span class="card-type-badge govt">IIT / Govt.</span>
+          <a href="https://www.iitr.ac.in" target="_blank" class="card-link">Visit Website <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14l-4-4 1.41-1.41L14 14.17V7h2v7.17l2.59-2.58L20 13l-6 6z"/></svg></a>
+        </div>
+      </div>
+
+      <div class="uni-card reveal">
+        <p class="card-city"><span class="city-dot"></span>Ahmedabad</p>
+        <h3 class="card-uni">CEPT University</h3>
+        <p class="card-course">M.Arch. / M.Des. in Conservation and Regeneration</p>
+        <p class="card-desc">One of India's leading architecture schools, CEPT's programme in Conservation and Regeneration is widely regarded as one of the most rigorous and comprehensive in the country, with strong links to practice.</p>
+        <div class="card-footer">
+          <span class="card-type-badge">Autonomous</span>
+          <a href="https://www.cept.ac.in" target="_blank" class="card-link">Visit Website <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14l-4-4 1.41-1.41L14 14.17V7h2v7.17l2.59-2.58L20 13l-6 6z"/></svg></a>
+        </div>
+      </div>
+
+      <div class="uni-card reveal">
+        <p class="card-city"><span class="city-dot"></span>New Delhi</p>
+        <h3 class="card-uni">National Museum Institute (NMI), Delhi</h3>
+        <p class="card-course">MA & PhD in Conservation, Preservation, and Heritage Management</p>
+        <p class="card-desc">NMI offers full-time MA and PhD programmes blending theoretical knowledge with hands-on practical training, preparing graduates for careers in conservation of art and cultural heritage objects.</p>
+        <div class="card-footer">
+          <span class="card-type-badge govt">Govt. Institute</span>
+          <a href="https://www.nmi.gov.in" target="_blank" class="card-link">Visit Website <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14l-4-4 1.41-1.41L14 14.17V7h2v7.17l2.59-2.58L20 13l-6 6z"/></svg></a>
+        </div>
+      </div>
+
+      <div class="uni-card reveal">
+        <p class="card-city"><span class="city-dot"></span>Hyderabad</p>
+        <h3 class="card-uni">Jawaharlal Nehru Architecture and Fine Arts University (JNAFAU)</h3>
+        <p class="card-course">M.Arch. in Architectural Conservation</p>
+        <p class="card-desc">JNAFAU's conservation programme focuses on the rich architectural heritage of the Deccan and South India, equipping students with the tools to document, analyse, and conserve historic structures.</p>
+        <div class="card-footer">
+          <span class="card-type-badge govt">State University</span>
+          <a href="https://www.jnafau.ac.in" target="_blank" class="card-link">Visit Website <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14l-4-4 1.41-1.41L14 14.17V7h2v7.17l2.59-2.58L20 13l-6 6z"/></svg></a>
+        </div>
+      </div>
+
+      <div class="uni-card reveal">
+        <p class="card-city"><span class="city-dot"></span>Ahmedabad</p>
+        <h3 class="card-uni">Anant National University</h3>
+        <p class="card-course">M.Arch. in Conservation</p>
+        <p class="card-desc">Anant National University brings an interdisciplinary, design-led approach to conservation education, integrating sustainability and community perspectives with architectural heritage practice.</p>
+        <div class="card-footer">
+          <span class="card-type-badge">Private University</span>
+          <a href="https://www.anu.edu.in" target="_blank" class="card-link">Visit Website <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14l-4-4 1.41-1.41L14 14.17V7h2v7.17l2.59-2.58L20 13l-6 6z"/></svg></a>
+        </div>
+      </div>
+
+      <div class="uni-card reveal">
+        <p class="card-city"><span class="city-dot"></span>Jaipur</p>
+        <h3 class="card-uni">Aayojan School of Architecture, Jaipur</h3>
+        <p class="card-course">M.Arch. in Architectural Conservation</p>
+        <p class="card-desc">A premier architecture school in Rajasthan, Aayojan offers a two-year full-time Masters in Architectural Conservation, with particular strength in the conservation of Rajasthan's extraordinary built heritage.</p>
+        <div class="card-footer">
+          <span class="card-type-badge">Private Institute</span>
+          <a href="https://www.aayojan.edu.in/jaipur" target="_blank" class="card-link">Visit Website <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14l-4-4 1.41-1.41L14 14.17V7h2v7.17l2.59-2.58L20 13l-6 6z"/></svg></a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══ SECTION 2: HERITAGE MANAGEMENT ═══ -->
+  <div class="category-section" id="management">
+    <div class="cat-header reveal">
+      <div class="cat-icon">🗺️</div>
+      <div>
+        <p class="cat-eyebrow">Management & Policy</p>
+        <h2 class="cat-title">Heritage Management Programmes</h2>
+      </div>
+      <div class="cat-count">06</div>
+    </div>
+
+    <div class="cards-grid">
+
+      <div class="uni-card featured reveal">
+        <p class="card-city"><span class="city-dot"></span>New Delhi</p>
+        <h3 class="card-uni">Delhi Institute of Heritage Research and Management (DIHRM)</h3>
+        <p class="card-course">MA in Heritage Management</p>
+        <p class="card-desc">DIHRM is Delhi's dedicated heritage management institute, offering an MA programme that equips students with skills in documentation, policy, management, and advocacy for Delhi's extraordinarily rich built and intangible heritage. The institute works closely with government bodies and international organisations.</p>
+        <div class="card-footer">
+          <span class="card-type-badge govt">Delhi Govt.</span>
+          <a href="https://www.dihrm.delhi.gov.in" target="_blank" class="card-link">Visit Website <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14l-4-4 1.41-1.41L14 14.17V7h2v7.17l2.59-2.58L20 13l-6 6z"/></svg></a>
+        </div>
+      </div>
+
+      <div class="uni-card reveal">
+        <p class="card-city"><span class="city-dot"></span>Ahmedabad</p>
+        <h3 class="card-uni">Ahmedabad University</h3>
+        <p class="card-course">MMS in Heritage Management</p>
+        <p class="card-desc">This management-focused programme builds a critical understanding of heritage and a managerial approach to the heritage sector — covering tangible, intangible, cultural, and natural heritage. Graduates have been placed with the Aga Khan Trust for Culture, INTACH, UNESCO, and IITs.</p>
+        <div class="card-footer">
+          <span class="card-type-badge">Private University</span>
+          <a href="https://ahduni.edu.in/academics/programmes/graduate-programmes/master-of-management-studies-in-heritage-management/" target="_blank" class="card-link">Visit Website <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14l-4-4 1.41-1.41L14 14.17V7h2v7.17l2.59-2.58L20 13l-6 6z"/></svg></a>
+        </div>
+      </div>
+
+      <div class="uni-card reveal">
+        <p class="card-city"><span class="city-dot"></span>Dehradun</p>
+        <h3 class="card-uni">Wildlife Institute of India (WII)</h3>
+        <p class="card-course">M.Sc. in Heritage Conservation and Management</p>
+        <p class="card-desc">A unique two-year residential programme integrating ecological sciences and heritage studies through theoretical modules, workshops, electives, and fieldwork. Recognised by UNESCO and listed on the World Heritage Centre's university network.</p>
+        <div class="card-footer">
+          <span class="card-type-badge govt">MoEFCC / Govt.</span>
+          <a href="https://wii.gov.in/masters_course_heritage_conservation_management" target="_blank" class="card-link">Visit Website <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14l-4-4 1.41-1.41L14 14.17V7h2v7.17l2.59-2.58L20 13l-6 6z"/></svg></a>
+        </div>
+      </div>
+
+      <div class="uni-card reveal">
+        <p class="card-city"><span class="city-dot"></span>Bhubaneswar</p>
+        <h3 class="card-uni">Utkal University of Culture</h3>
+        <p class="card-course">Master's in Cultural Heritage and Conservation</p>
+        <p class="card-desc">A two-year programme focused on the study, preservation, and promotion of cultural heritage, equipping students with knowledge and hands-on experience to address the challenges of conserving Odisha's rich cultural legacy.</p>
+        <div class="card-footer">
+          <span class="card-type-badge govt">State University</span>
+          <a href="https://uuc.ac.in/cultural-heritage-and-conservation/" target="_blank" class="card-link">Visit Website <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14l-4-4 1.41-1.41L14 14.17V7h2v7.17l2.59-2.58L20 13l-6 6z"/></svg></a>
+        </div>
+      </div>
+
+      <div class="uni-card reveal">
+        <p class="card-city"><span class="city-dot"></span>New Delhi</p>
+        <h3 class="card-uni">Dr. B.R. Ambedkar University Delhi (AUD)</h3>
+        <p class="card-course">MA in Conservation, Preservation & Heritage Management</p>
+        <p class="card-desc">Offered through AUD's School of Heritage Research and Management, this interdisciplinary MA programme draws on history, archaeology, and social sciences to develop well-rounded heritage professionals. Also offers MA in Archaeology & Heritage Management.</p>
+        <div class="card-footer">
+          <span class="card-type-badge govt">State University</span>
+          <a href="https://aud.delhi.gov.in" target="_blank" class="card-link">Visit Website <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14l-4-4 1.41-1.41L14 14.17V7h2v7.17l2.59-2.58L20 13l-6 6z"/></svg></a>
+        </div>
+      </div>
+
+      <div class="uni-card reveal">
+        <p class="card-city"><span class="city-dot"></span>Bengaluru</p>
+        <h3 class="card-uni">Srishti Manipal Institute of Art, Design and Technology</h3>
+        <p class="card-course">MA in Urban Design, Sustainability & Conservation (UNESCO Chair)</p>
+        <p class="card-desc">This programme, established under the UNESCO Chair in Culture, Habitat, and Sustainable Development, delivers familiarity with international heritage frameworks and connects conservation with urban design and sustainability.</p>
+        <div class="card-footer">
+          <span class="card-type-badge">UNESCO Chair</span>
+          <a href="https://srishti.ac.in" target="_blank" class="card-link">Visit Website <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14l-4-4 1.41-1.41L14 14.17V7h2v7.17l2.59-2.58L20 13l-6 6z"/></svg></a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══ SECTION 3: ONLINE COURSES ═══ -->
+  <div class="category-section" id="online">
+    <div class="cat-header reveal">
+      <div class="cat-icon">💻</div>
+      <div>
+        <p class="cat-eyebrow">Digital Learning</p>
+        <h2 class="cat-title">Online & Free Courses</h2>
+      </div>
+      <div class="cat-count">03</div>
+    </div>
+
+    <div class="online-grid">
+
+      <div class="online-card reveal">
+        <p class="card-city"><span class="city-dot"></span>IIT Kharagpur · NPTEL / Free</p>
+        <h3 class="card-uni">Indian Institute of Technology (IIT) Kharagpur</h3>
+        <p class="card-course">Architectural Conservation and Historic Preservation</p>
+        <p class="card-desc">A free online course via NPTEL addressing the concepts of historic preservation and conservation — covering the conservation movement's history, international frameworks, and guidelines for preserving historic buildings. Accessible to anyone with an internet connection.</p>
+        <div class="card-footer">
+          <span class="card-type-badge">Free · NPTEL</span>
+          <a href="https://www.learningroutes.in/freecourses/architectural-conservation-and-historic-preservation" target="_blank" class="card-link">Enrol Free <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14l-4-4 1.41-1.41L14 14.17V7h2v7.17l2.59-2.58L20 13l-6 6z"/></svg></a>
+        </div>
+      </div>
+
+      <div class="online-card reveal">
+        <p class="card-city"><span class="city-dot"></span>SWAYAM · Free</p>
+        <h3 class="card-uni">SWAYAM National Online Courses</h3>
+        <p class="card-course">Understanding Heritage</p>
+        <p class="card-desc">A free SWAYAM platform course covering India's cultural heritage, conservation principles, and the global frameworks that govern heritage practice. Open to students across disciplines, with opportunity for professional development in heritage conservation and management sectors.</p>
+        <div class="card-footer">
+          <span class="card-type-badge">Free · Govt. India</span>
+          <a href="https://onlinecourses.swayam2.ac.in/cec25_hs123/preview" target="_blank" class="card-link">Enrol Free <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14l-4-4 1.41-1.41L14 14.17V7h2v7.17l2.59-2.58L20 13l-6 6z"/></svg></a>
+        </div>
+      </div>
+
+      <div class="online-card reveal">
+        <p class="card-city"><span class="city-dot"></span">UNESCO WHC · Free</p>
+        <h3 class="card-uni">UNESCO World Heritage Centre</h3>
+        <p class="card-course">World Heritage and Sustainable Development Online Resources</p>
+        <p class="card-desc">UNESCO's World Heritage Centre provides a range of free online learning resources, case studies, and capacity-building materials for heritage professionals and students, including the World Heritage Scholarship and links to affiliated university programmes globally.</p>
+        <div class="card-footer">
+          <span class="card-type-badge">Free · UNESCO</span>
+          <a href="https://whc.unesco.org/en/activities/121/" target="_blank" class="card-link">Explore <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14l-4-4 1.41-1.41L14 14.17V7h2v7.17l2.59-2.58L20 13l-6 6z"/></svg></a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══ SECTION 4: SHORT COURSES ═══ -->
+  <div class="category-section" id="shortcourses">
+    <div class="cat-header reveal">
+      <div class="cat-icon">📋</div>
+      <div>
+        <p class="cat-eyebrow">Professional Development</p>
+        <h2 class="cat-title">Short Courses & Certificate Programmes</h2>
+      </div>
+      <div class="cat-count">04</div>
+    </div>
+
+    <div class="short-list reveal">
+
+      <a href="http://heritage.intach.org/short-term-certificate-courses/" target="_blank" class="short-row">
+        <div>
+          <p class="short-title">Conservation in India — Certificate Programme</p>
+          <p style="font-size:0.82rem;color:#777;margin-top:0.25rem;">Covers Indian approaches to conservation, heritage impact assessment, and global frameworks as applied in India.</p>
+        </div>
+        <p class="short-org">INTACH Heritage Academy, New Delhi</p>
+        <p class="short-type">Certificate · Short Course</p>
+        <span class="short-arrow">→</span>
+      </a>
+
+      <a href="http://heritage.intach.org/short-term-certificate-courses/" target="_blank" class="short-row">
+        <div>
+          <p class="short-title">Heritage Impact Assessment (HIA)</p>
+          <p style="font-size:0.82rem;color:#777;margin-top:0.25rem;">One-day programme introducing HIA methodologies, toolkits, and case studies for evaluating proposed development near heritage sites.</p>
+        </div>
+        <p class="short-org">INTACH Heritage Academy, New Delhi</p>
+        <p class="short-type">Certificate · 1 Day</p>
+        <span class="short-arrow">→</span>
+      </a>
+
+      <a href="https://braou.ac.in/diplomaprogram/PGD" target="_blank" class="short-row">
+        <div>
+          <p class="short-title">PG Diploma in Culture and Heritage Tourism</p>
+          <p style="font-size:0.82rem;color:#777;margin-top:0.25rem;">One-year postgraduate diploma open to graduates of any discipline, focusing on heritage tourism, cultural management, and site interpretation.</p>
+        </div>
+        <p class="short-org">Dr. B.R. Ambedkar Open University (BRAOU), Hyderabad</p>
+        <p class="short-type">PG Diploma · 1 Year</p>
+        <span class="short-arrow">→</span>
+      </a>
+
+      <a href="https://www.apti.org/education" target="_blank" class="short-row">
+        <div>
+          <p class="short-title">APT Webinars & Technical Sessions</p>
+          <p style="font-size:0.82rem;color:#777;margin-top:0.25rem;">APT International offers regular webinars, technical sessions, and online resources covering the latest research and practice in preservation technology.</p>
+        </div>
+        <p class="short-org">APT International</p>
+        <p class="short-type">Webinar · Ongoing</p>
+        <span class="short-arrow">→</span>
+      </a>
+
+    </div>
+  </div>
+
+</div><!-- /main -->
+
+<!-- CTA BAR -->
+<div class="cta-bar">
+  <div class="cta-text">
+    <p class="cta-eyebrow">Know a programme we've missed?</p>
+    <h3 class="cta-title">Help us build a more complete directory for South Asia</h3>
+  </div>
+  <a href="mailto:aptsouthasiachapter@gmail.com" class="cta-btn">Suggest a Resource →</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">APT <span>South Asia</span> Chapter</div>
+      <p class="footer-tagline">Serving the South Asia region through education, training, and outreach in preservation technology since 2019.</p>
+    </div>
+    <div>
+      <p class="footer-col-title">Navigate</p>
+      <ul class="footer-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="newsletters.html">Newsletters</a></li>
+        <li><a href="podcasts.html">Podcasts</a></li>
+        <li><a href="resources.html">Resources</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">External</p>
+      <ul class="footer-links">
+        <li><a href="https://www.apti.org" target="_blank">APT International</a></li>
+        <li><a href="https://open.spotify.com/show/71S5RNk1evzD65SDRLpVSp" target="_blank">Spotify</a></li>
+        <li><a href="https://issuu.com/aptsouthasiachapter" target="_blank">Issuu</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2025 APT South Asia Chapter. All rights reserved.</p>
+    <p class="footer-apt">A regional chapter of APT International</p>
+  </div>
+</footer>
+
+<script>
+  // Tab scroll
+  function scrollToSection(id) {
+    const el = document.getElementById(id);
+    if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    event.target.classList.add('active');
+  }
+
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i * 80); observer.unobserve(e.target); } });
+  }, { threshold: 0.06 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Update active tab on scroll
+  const sections = ['degree','management','online','shortcourses'];
+  const tabs = document.querySelectorAll('.tab-btn');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && window.scrollY >= el.offsetTop - 200) current = id;
+    });
+    tabs.forEach((tab, i) => {
+      tab.classList.toggle('active', sections[i] === current || (current === '' && i === 0));
+    });
+  });
+</script>
+</body>
+</html>
